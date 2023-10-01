@@ -12,7 +12,7 @@ pipeline{
         docker{
             image 'maven'
              reuseNode true
-           // args ''
+             args 'USER_HOME_DIR="/root"'
         }
     }
     stages{
