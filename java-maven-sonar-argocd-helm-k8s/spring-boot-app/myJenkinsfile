@@ -1,0 +1,51 @@
+    // Stage 1: Checkout the source code from Git.
+    // Stage 2: Build the Java application using Maven.
+    // Stage 3: Run unit tests using JUnit and Mockito.
+    // Stage 4: Run SonarQube analysis to check the code quality.
+    // Stage 5: Package the application into a JAR file.
+    // Stage 6: Deploy the application to a test environment using Helm.
+    // Stage 7: Run user acceptance tests on the deployed application.
+    // Stage 8: Promote the application to a production environment using Argo CD.
+
+pipeline{
+    agent{
+        docker{
+            image 'maven'
+           // args ''
+        }
+    }
+    stages{
+        stage('Checkout Code'){
+            steps{
+            git branch: 'main', url: 'https://github.com/ybsgit/Jenkins-Zero-To-Hero'
+            }
+        }
+
+        stage('Build java using maven'){
+            steps{
+                sh 'cd java-maven-sonar-argocd-helm-k8s/spring-boot-app && mvn build'
+            }
+        }
+
+        stage('Run unit tests'){
+            steps{
+                sh 'cd java-maven-sonar-argocd-helm-k8s/spring-boot-app && mvn test'
+            }
+        }
+
+        stage('Run SonarQube Analysis'){
+            steps{
+              withSonarQubeEnv('My SonarQube Server') {
+                sh 'mvn clean package sonar:sonar'
+              }
+            }
+        }
+
+        stage('Package Application into JAR file'){
+            steps{
+                sh 'mvn clean install'
+            }
+        }
+
+    }
+}
