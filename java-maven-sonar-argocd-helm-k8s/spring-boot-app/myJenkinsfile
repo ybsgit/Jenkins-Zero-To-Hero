@@ -25,7 +25,7 @@ pipeline{
 
         stage('Build java using maven'){
             steps{
-                sh 'cd java-maven-sonar-argocd-helm-k8s/spring-boot-app && mvn build -X'
+                sh 'whoam && cd java-maven-sonar-argocd-helm-k8s/spring-boot-app && mvn build -X'
             }
         }
 
