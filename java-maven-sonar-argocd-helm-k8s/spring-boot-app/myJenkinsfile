@@ -38,7 +38,7 @@ pipeline{
         stage('Run SonarQube Analysis'){
             steps{
               withSonarQubeEnv('sonar') {
-                sh 'mvn clean package sonar:sonar'
+                sh 'cd java-maven-sonar-argocd-helm-k8s/spring-boot-app && mvn clean package sonar:sonar'
               }
             }
         }
