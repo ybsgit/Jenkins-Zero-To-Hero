@@ -11,7 +11,7 @@ pipeline{
     agent{
         docker{
             image 'maven:latest'
-            args 'USER_HOME_DIR="/root"'
+            args '-e USER_HOME_DIR="/root"'
              reuseNode true
              
         }
