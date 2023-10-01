@@ -36,11 +36,7 @@ pipeline{
         }
 
         stage('Run SonarQube Analysis'){
-            agent{
-                node{
-                    label 'master'
-                }
-            }
+            agent any
             steps{
               withSonarQubeEnv('sonar') {
                 sh 'cd java-maven-sonar-argocd-helm-k8s/spring-boot-app && mvn clean package sonar:sonar'
